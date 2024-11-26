@@ -10,9 +10,6 @@ Contexto:
 
 Cenário: Login com sucesso
     Quando eu inserir usuario e senha válidos
-        | usuario              | senha    |
-        | "ebac1@email.com"    | "abc123" |
-        | "ebac2@email.com.br" | "a1b2c3" |
     Entao deverá realizar login com sucesso e apresentar a tela de checkout
 
 Esquema do cenario: Login com dados invalidos

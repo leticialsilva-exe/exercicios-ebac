@@ -37,8 +37,5 @@ Esquema do Cenário: Validar campos email
 Esquema do Cenário: Validar campos email
 
 Cenário: Validar cadastro com sucesso
-    Quando eu preencher todos os campos conforme os dados
-            | nome    | sobrenome | pais     | endereco        | cidade    | cep        | telefone       | email               |
-            | "Maria" | "Santos"  | "Brasil" | "Rua Damaceno"  | "Barueri" | "09876320" | "119997615151" | "email@outlook.com" |
-            | "Lucas" | "Santos"  | "Brasil" | "Rua Professor" | "Osasco"  | "09876381" | "129765326172" | "email@gmail.com.br" |
+    Quando eu preencher informar todos os campos obrigatórios
     Entao deverá ser efetuado o cadastro com sucesso
