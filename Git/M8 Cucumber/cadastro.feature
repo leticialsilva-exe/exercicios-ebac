@@ -34,7 +34,6 @@ Esquema do Cenário: Validar campos email
             | "email.com"  | "Formato de email inválido" |
             | "email@.com" | "Formato de email inválido" |
 
-Esquema do Cenário: Validar campos email
 
 Cenário: Validar cadastro com sucesso
     Quando eu preencher informar todos os campos obrigatórios

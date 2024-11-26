@@ -12,7 +12,7 @@ Cenário: Login com sucesso
     Quando eu inserir usuario e senha válidos
     Entao deverá realizar login com sucesso e apresentar a tela de checkout
 
-Esquema do cenario: Login com dados invalidos
+Esquema do Cenário: Login com dados invalidos
     Quando eu inserir o <usuario>
     E a <senha>
     Entao deverá apresentar a mensagem <texto> informando ao cliente

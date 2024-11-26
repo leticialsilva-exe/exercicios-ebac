@@ -9,7 +9,7 @@ Funcionalidade: Configurar Produto
 Contexto: 
     Dado que eu esteja na tela de detalhes do produto
 
-Esquema do cenário: Validar campos obrigatórios
+Esquema do Cenário: Validar campos obrigatórios
     Quando eu nao selecionar a <caracteristica> do produto
     E clicar no botao comprar
     Entao deve apresentar a mensagem <texto> informando ao cliente que o campo é obrigatorio
@@ -20,7 +20,7 @@ Esquema do cenário: Validar campos obrigatórios
             | "tamanho"      | "O campo TAMANHO é obrigatorio"    |
             | "quantidade"   | "O campo QUANTIDADE é obrigatorio" |
 
-Esquema do cenario: Validar quantidade permitida de venda
+Esquema do Cenario: Validar quantidade permitida de venda
     Quando eu preencher os campos obrigatorios
     E selecionar quantidade <qtd> do produto
     Entao deve apresentar a mensagem <texto> de sucesso
