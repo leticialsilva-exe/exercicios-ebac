@@ -1,5 +1,5 @@
 /// <reference types= "cypress"/>
-
+import contract from "../Contracts/produtos.contract"
 describe('API testing - Product', () => {
 
     let token;
@@ -9,6 +9,13 @@ describe('API testing - Product', () => {
             token = tk;
         })
     });
+
+    it.only('Should validate Products Contract ', () => {
+        cy.request('produtos').then(response => {
+            return contract.validateAsync(response.body)
+        })
+    });
+
     
     it('Should list products - GET ', () => {
         cy.request({
