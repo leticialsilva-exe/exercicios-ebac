@@ -40,14 +40,18 @@ Cypress.Commands.add('getToken', (email, password) => {
     })
 })
 
+Cypress.Commands.add('createUser', (nome, email, senha, adm) =>{
+    cy.request({
+        method: 'POST',
+        url: 'usuarios',
+        body: {
+            "nome": nome,
+            "email": email,
+            "password": senha,
+            "administrador": adm              
+        }
+    }).then(response => {
+        return response.body._id;
+    })
 
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+})
