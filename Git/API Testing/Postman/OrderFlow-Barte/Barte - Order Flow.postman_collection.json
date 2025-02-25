@@ -1,0 +1,301 @@
+{
+	"info": {
+		"_postman_id": "4b4a18e8-c385-43d5-8344-a90adad78482",
+		"name": "Barte - Order Flow",
+		"description": "Buyer and Order creation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "12843633"
+	},
+	"item": [
+		{
+			"name": "Buyer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Geracao de CPF",
+							"function cpf() {",
+							"  const rnd = (n) => Math.round(Math.random() * n);",
+							"  const mod = (base, div) => Math.round(base - Math.floor(base / div) * div)",
+							"  const n = Array(9).fill('').map(() => rnd(9));",
+							"",
+							"  let d1 = n.reduce((total, number, index) => (total + (number * (10 - index))), 0)",
+							"  d1 = 11 - mod(d1, 11);",
+							"  if (d1 >= 10) d1 = 0;",
+							"  ",
+							"  let d2 = (d1 * 2) + n.reduce((total, number, index) => (total + (number * (11 - index))), 0)",
+							"  d2 = 11 - mod(d2, 11);",
+							"  if (d2 >= 10) d2 = 0;",
+							"",
+							"  return `${n.join('')}${d1}${d2}`",
+							"}",
+							"pm.collectionVariables.set('CPF', cpf());",
+							"",
+							"// Geracao de variaveis randomicas",
+							"pm.collectionVariables.set('name', pm.variables.replaceIn('{{$randomFullName}}'))",
+							"pm.collectionVariables.set('email', pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set('alternativeEmail', pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set('phone', require('lodash').random(1000000000, 9999999999) )",
+							"pm.collectionVariables.set('zipCode', require('lodash').random(10000000, 99999999) )",
+							"",
+							"// Limpando variavel buyerID antiga",
+							"pm.collectionVariables.set('buyerID','')"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body contains uuid\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"uuid\")",
+							"",
+							"    //Capturando o uuid e salvando em variavel",
+							"    pm.collectionVariables.set('buyerID', responseData.uuid)",
+							"});",
+							"",
+							"pm.test(\"Validando que document seja o mesmo valor da request\", function () {",
+							"    pm.expect(responseData.document).to.eql(pm.collectionVariables.get('CPF'));",
+							"});",
+							"",
+							"pm.test(\"Validando que name seja o mesmo valor da request\", function () {",
+							"    let respName = (responseData.name).trim()",
+							"    pm.expect(respName).to.equal(pm.collectionVariables.get('name'));",
+							"});",
+							"",
+							"pm.test(\"Validando que countryCode seja +55\", function () {",
+							"    pm.expect(responseData.countryCode).to.eql(\"+55\");",
+							"});",
+							"",
+							"pm.test(\"Validando que phone seja o mesmo valor da request\", function () {",
+							"    pm.expect(responseData.phone).to.eql((pm.collectionVariables.get('phone')).toString());",
+							"});",
+							"",
+							"pm.test(\"Validando que email seja o mesmo valor da request\", function () {",
+							"    pm.expect(responseData.email).to.eql(pm.collectionVariables.get('email'));",
+							"});",
+							"",
+							"pm.test(\"Validando que alternativeEmail seja o mesmo valor da request\", function () {",
+							"    pm.expect(responseData.alternativeEmail).to.eql(pm.collectionVariables.get('alternativeEmail'));",
+							"});",
+							"",
+							"// pm.execution.setNextRequest(\"Orders\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Token-Api",
+						"value": "{{token}}"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"document\": {\n        \"documentNumber\": {{CPF}},\n        \"documentType\": \"CPF\",\n        \"documentNation\": \"BR\"\n    },\n    \"name\": \"{{name}}\",\n    \"email\": \"{{email}}\",\n    \"phone\": \"{{phone}}\",\n    \"alternativeEmail\": \"{{alternativeEmail}}\",\n    \"address\": {\n        \"country\": \"{{$randomCountryCode}}\",\n        \"state\": \"{{$randomCity}}\",\n        \"city\": \"{{$randomCity}}\",\n        \"district\": \"{{$randomStreetName}}\",\n        \"street\": \"{{$randomStreetAddress}}\",\n        \"zipCode\": \"{{zipCode}}\",\n        \"number\": \"{{$randomInt}}\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox-api.barte.com/v2/buyers"
+			},
+			"response": []
+		},
+		{
+			"name": "Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body contains uuid\", function () {",
+							"    pm.expect(responseData).to.have.property(\"uuid\");",
+							"});",
+							"",
+							"pm.test(\"Validando que status seja PAID\", function () {",
+							"    pm.expect(responseData.status).to.eql(\"PAID\");",
+							"});",
+							"",
+							"pm.test(\"Validando que payment seja CREDIT_CARD\", function () {",
+							"    pm.expect(responseData.payment).to.eql(\"CREDIT_CARD\");",
+							"});",
+							"",
+							"pm.collectionVariables.set('orderID', responseData.uuid)",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Validando que buyerID existe\", function () {",
+							"     pm.expect(",
+							"        pm.collectionVariables.get('buyerID')",
+							"     ).to.be.not.empty",
+							"});",
+							"",
+							"// Geracao de variaveis randomicas",
+							"pm.collectionVariables.set('title', pm.variables.replaceIn('QA Title {{$randomFirstName}} {{$randomInt}}'))",
+							"pm.collectionVariables.set('description', pm.variables.replaceIn('QA description {{$randomFirstName}} {{$randomInt}}'))",
+							"pm.collectionVariables.set('price', pm.variables.replaceIn('{{$randomInt}}'))",
+							"pm.collectionVariables.set('name', pm.variables.replaceIn('{{$randomFullName}}'))",
+							"pm.collectionVariables.set('email', pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set('alternativeEmail', pm.variables.replaceIn('{{$randomEmail}}'))",
+							"pm.collectionVariables.set('phone', require('lodash').random(1000000000, 9999999999) )",
+							"pm.collectionVariables.set('zipCode', require('lodash').random(10000000, 99999999) )",
+							"",
+							"// Geracao de variavel com a data atual",
+							"const moment = require('moment');",
+							"pm.collectionVariables.set(\"date\", moment().format(\"YYYY-MM-DD\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Token-Api",
+						"value": "{{token}}"
+					},
+					{
+						"key": "X-Idempotency-Key",
+						"value": "43fda5f5-6bf4-4f1c-8036-a31b75b1e741"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"startDate\": \"{{date}}\",\n    \"value\": {{$randomPrice}},\n    \"installments\": 1,\n    \"urlCallBack\": \"{{$randomUrl}}\",\n    \"title\": \"{{title}}\",\n    \"description\": \"{{description}}\",\n    \"payment\": {\n        \"method\": \"CREDIT_CARD\",\n        \"fraudData\": {\n            \"document\": \"{{CPF}}\",\n            \"name\": \"{{name}}\",\n            \"email\": \"{{email}}\",\n            \"phone\": \"{{phone}}\",\n            \"billingAddress\": {\n                \"country\": \"{{$randomCountryCode}}\",\n                \"state\": \"{{$randomCity}}\",\n                \"city\": \"{{$randomCity}}\",\n                \"district\": \"{{$randomStreetName}}\",\n                \"street\": \"{{$randomStreetAddress}}\",\n                \"zipCode\": \"{{zipCode}}\",\n                \"number\": \"{{$randomInt}}\",\n                \"complement\": \"{{$randomAdjective}}\"\n            }\n        },\n        \"card\": {\n            \"holderName\": \"Joao Lucas Santos\",\n            \"number\": \"5383638854440891\",\n            \"cvv\": \"220\",\n            \"expiration\": \"10/2025\",\n            \"buyerUuid\": \"{{buyerID}}\"\n        },\n        \"brand\": \"mastercard\"\n    },\n    \"uuidBuyer\": \"{{buyerID}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://sandbox-api.barte.com/v2/orders"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "3915bf03-ec62-4926-a9e3-45e09f6a56b3",
+			"type": "string"
+		},
+		{
+			"key": "buyerID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "orderID",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "CPF",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "phone",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "alternativeEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "zipCode",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "title",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "description",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "price",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "date",
+			"value": ""
+		}
+	]
+}
