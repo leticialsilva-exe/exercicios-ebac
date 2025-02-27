@@ -6,6 +6,10 @@ class HomePage {
             await $(`id:tab-${menu}`).click()
             // await $('~Profile').click()
         }
+
+        get ebacHomeLogo(){
+            return $('android=new UiSelector().text("EBAC Store")')
+        }
 }
 
 export default new HomePage();

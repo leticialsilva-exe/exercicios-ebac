@@ -55,6 +55,8 @@ export const config = {
         timeout: 60000
     },
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
-            await driver.takeScreenshot();
+            if (error){
+                await driver.takeScreenshot();
+            }
     }
 }
