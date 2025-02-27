@@ -1,0 +1,14 @@
+# Command to run appium-doctor
+# appium driver doctor uiautomator2
+
+# Command to set up the bundletool.jar
+# chmod +x bundletool.jar
+
+# Command to install the reporter pluggins, can be found at https://webdriver.io/docs/allure-reporter
+# npm install @wdio/allure-reporter --save-dev
+#
+# to see the results on a server
+# npx allure serve
+# or This will generate a report (by default in ./allure-report), and open it in your browser.
+# allure generate [allure_output_dir] && allure open
+

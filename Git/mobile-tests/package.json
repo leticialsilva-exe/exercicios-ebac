@@ -2,6 +2,8 @@
   "name": "mobile-tests",
   "type": "module",
   "devDependencies": {
+    "@faker-js/faker": "^9.5.0",
+    "@wdio/allure-reporter": "^9.10.1",
     "@wdio/cli": "^9.10.0",
     "@wdio/local-runner": "^9.10.0",
     "@wdio/mocha-framework": "^9.9.0",
@@ -10,5 +12,8 @@
   },
   "scripts": {
     "test": "wdio run ./wdio.conf.js"
+  },
+  "dependencies": {
+    "allure-commandline": "^2.32.2"
   }
 }
