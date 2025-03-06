@@ -1,16 +1,37 @@
+// pipeline {
+//     agent any
+
+//     stages {
+//         stage('Setup') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/leticialsilva-exe/exercicios-ebac.git'
+//                 sh 'npm install'
+//             }
+//         }
+//         stage('Test') {
+//             steps {
+//                 sh 'NO_COLOR=1 npm test'
+//             }
+//         }
+//     }
+// }
 pipeline {
     agent any
 
     stages {
-        stage('Setup') {
+        stage('Build') {
             steps {
-                git branch: 'main', url: 'https://github.com/leticialsilva-exe/exercicios-ebac.git'
-                sh 'npm install'
+                echo 'Building..'
             }
         }
         stage('Test') {
             steps {
-                sh 'NO_COLOR=1 npm test'
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
