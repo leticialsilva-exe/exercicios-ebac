@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                git branch: 'main', url: 'https://github.com/leticialsilva-exe/exercicios-ebac/tree/main/Git/mobile-tests'
+                git branch: 'main', url: 'https://github.com/leticialsilva-exe/exercicios-ebac.git'
                 sh 'npm install'
             }
         }
