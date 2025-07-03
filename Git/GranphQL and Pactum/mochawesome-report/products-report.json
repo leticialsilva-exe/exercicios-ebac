@@ -1,0 +1,172 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 4,
+    "passes": 1,
+    "pending": 0,
+    "failures": 3,
+    "start": "2025-07-03T00:19:11.702Z",
+    "end": "2025-07-03T00:19:13.912Z",
+    "duration": 2210,
+    "testsRegistered": 4,
+    "passPercent": 25,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+      "title": "",
+      "fullFile": "",
+      "file": "/Users/leticia/Documents/EBAC/Git/GranphQL and Pactum/test/graphql/products.test.js",
+      "beforeHooks": [
+        {
+          "title": "\"before each\" hook in \"{root}\"",
+          "fullTitle": "\"before each\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 372,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "token = await spec()\n    .post('http://lojaebac.ebaconline.art.br/graphql')\n    .withGraphQLQuery(`\n    mutation AuthUser($email: String, $password: String) {\n        authUser(email: $email, password: $password) {\n          success\n          token\n        }\n      }\n`)\n    .withGraphQLVariables({\n        \"email\": \"admin@admin.com\",\n        \"password\": \"admin123\"\n    })\n    .returns('data.authUser.token')",
+          "err": {},
+          "uuid": "2247498b-982e-4536-a722-278f3364ab94",
+          "parentUUID": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "Checking Products return",
+          "fullTitle": "Checking Products return",
+          "timedOut": false,
+          "duration": 146,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n    .post('http://lojaebac.ebaconline.art.br/graphql')\n    .withGraphQLQuery(`\n        {\n          Products {\n                name\n                price\n            }\n        }\n    `)\n    .expectStatus(200)\n    .expectBodyContains(\"name\")\n    .expectJsonMatch({\n        data: {\n            Products: eachLike({\n                name: like(\"Nome Product\"),\n                price: like(120.00),\n            })\n        }\n    })",
+          "err": {
+            "message": "AssertionError: Json doesn't have type 'string' at '$.data.Products[15].name' but found 'null'",
+            "estack": "AssertionError [ERR_ASSERTION]: Json doesn't have type 'string' at '$.data.Products[15].name' but found 'null'\n    at Expect.fail (node_modules/pactum/src/models/expect.js:464:12)\n    at Expect._validateJsonMatch (node_modules/pactum/src/models/expect.js:289:14)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:60:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:255:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:219:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:46:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+            "diff": null
+          },
+          "uuid": "6334e66f-c2ba-4e4c-a984-2e10de95bbbe",
+          "parentUUID": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Adding new product",
+          "fullTitle": "Adding new product",
+          "timedOut": false,
+          "duration": 134,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n.post('http://lojaebac.ebaconline.art.br/graphql')\n.withHeaders({\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'Authorization': `Bearer ${token}`\n})\n.withGraphQLQuery(`\n    mutation {\n        addProduct(\n            name: \"testeUI\"\n            price: 100.00\n        ) {\n            name\n            price\n        }\n    }\n`)\n.expectStatus(200)\n.expectBodyContains(\"testeUI\");",
+          "err": {
+            "message": "AssertionError: Value 'testeUI' not found in response body",
+            "estack": "AssertionError [ERR_ASSERTION]: Value 'testeUI' not found in response body\n    at Expect.fail (node_modules/pactum/src/models/expect.js:464:12)\n    at Expect._validateBodyContains (node_modules/pactum/src/models/expect.js:213:16)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:53:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:255:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:219:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:46:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+            "diff": null
+          },
+          "uuid": "7e3b3580-e212-46d4-974b-7870c924f6d4",
+          "parentUUID": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Editing product",
+          "fullTitle": "Editing product",
+          "timedOut": false,
+          "duration": 131,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n.post('http://lojaebac.ebaconline.art.br/graphql')\n.withHeaders({\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'Authorization': `Bearer ${token}`\n})\n.withGraphQLQuery(`\n    mutation {\n        editProduct(\n            id: 1\n            name: \"testeUIEditado\"\n            price: 150.00\n        ) {\n            name\n            price\n        }\n    }\n`)\n.expectStatus(200)\n.expectBodyContains(\"testeUIEditado\");",
+          "err": {
+            "message": "AssertionError: Value 'testeUIEditado' not found in response body",
+            "estack": "AssertionError [ERR_ASSERTION]: Value 'testeUIEditado' not found in response body\n    at Expect.fail (node_modules/pactum/src/models/expect.js:464:12)\n    at Expect._validateBodyContains (node_modules/pactum/src/models/expect.js:213:16)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:53:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:255:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:219:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:46:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+            "diff": null
+          },
+          "uuid": "c96a86c2-bc0e-4e3e-a0ab-9073a23f135f",
+          "parentUUID": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Deleting product",
+          "fullTitle": "Deleting product",
+          "timedOut": false,
+          "duration": 134,
+          "state": "passed",
+          "speed": "slow",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n.post('http://lojaebac.ebaconline.art.br/graphql')\n.withHeaders({\n    'Content-Type': 'application/json',\n    'Accept': 'application/json',\n    'Authorization': `Bearer ${token}`\n})\n.withGraphQLQuery(`\n    mutation DeleteProduct($deleteProductId: ID!) {\n    deleteProduct(id: $deleteProductId) {\n        name\n        additionalDetails\n        visible\n        specialPrice\n        description\n        price\n    }\n    }\n`)\n.withGraphQLVariables({\n    \"deleteProductId\": 5\n})\n.expectStatus(200)\n.expectBodyContains(\"null\");",
+          "err": {},
+          "uuid": "721ff9de-bfb8-405b-9130-e2f85d254ff6",
+          "parentUUID": "dd2d7a87-f0eb-4a4b-b1fb-9e81c0a6a340",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [],
+      "passes": [
+        "721ff9de-bfb8-405b-9130-e2f85d254ff6"
+      ],
+      "failures": [
+        "6334e66f-c2ba-4e4c-a984-2e10de95bbbe",
+        "7e3b3580-e212-46d4-974b-7870c924f6d4",
+        "c96a86c2-bc0e-4e3e-a0ab-9073a23f135f"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 545,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "products-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportFilename": "products-report"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

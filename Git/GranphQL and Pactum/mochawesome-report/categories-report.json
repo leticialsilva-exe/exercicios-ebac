@@ -1,0 +1,168 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 4,
+    "passes": 2,
+    "pending": 0,
+    "failures": 2,
+    "start": "2025-07-03T00:14:44.561Z",
+    "end": "2025-07-03T00:14:46.779Z",
+    "duration": 2218,
+    "testsRegistered": 4,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+      "title": "",
+      "fullFile": "",
+      "file": "/Users/leticia/Documents/EBAC/Git/GranphQL and Pactum/test/graphql/categories.test.js",
+      "beforeHooks": [
+        {
+          "title": "\"before each\" hook in \"{root}\"",
+          "fullTitle": "\"before each\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 376,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "token = await spec()\n    .post('http://lojaebac.ebaconline.art.br/graphql')\n    .withGraphQLQuery(`\n    mutation AuthUser($email: String, $password: String) {\n        authUser(email: $email, password: $password) {\n          success\n          token\n        }\n      }\n`)\n    .withGraphQLVariables({\n        \"email\": \"admin@admin.com\",\n        \"password\": \"admin123\"\n    })\n    .returns('data.authUser.token')",
+          "err": {},
+          "uuid": "352c3af9-9df2-4a0d-8f5f-e1b8777575d7",
+          "parentUUID": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+          "isHook": true,
+          "skipped": false
+        }
+      ],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "Checking Categories return",
+          "fullTitle": "Checking Categories return",
+          "timedOut": false,
+          "duration": 140,
+          "state": "passed",
+          "speed": "slow",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n    .post('http://lojaebac.ebaconline.art.br/graphql')\n    .withGraphQLQuery(`\n        {\n          Categories {\n                name\n                photo\n            }\n        }\n    `)\n    .expectStatus(200)\n    .expectBodyContains(\"name\")\n    .expectJsonMatch({\n        data: {\n            Categories: eachLike({\n                name: like(\"Nome Categoria\"),\n                photo: like(\"https://lojaebac.ebaconline.art.br/wp-content/uploads/2020/10/categorias-1.png\"),\n            })\n        }\n    })",
+          "err": {},
+          "uuid": "c8a8625f-cff5-4fda-bc07-f41fec333d66",
+          "parentUUID": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Adding new category",
+          "fullTitle": "Adding new category",
+          "timedOut": false,
+          "duration": 143,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n.post('http://lojaebac.ebaconline.art.br/graphql')\n.withGraphQLQuery(`\n    mutation {\n        addCategory(\n            name: \"testeUI\"\n            photo: \"Testeink\"\n        ) {\n            name\n            photo\n        }\n    }\n`)\n.returns('data.addCategory')\n.expectStatus(200)\n.expectBodyContains(\"testeUI\");",
+          "err": {
+            "message": "AssertionError: Value 'testeUI' not found in response body",
+            "estack": "AssertionError [ERR_ASSERTION]: Value 'testeUI' not found in response body\n    at Expect.fail (node_modules/pactum/src/models/expect.js:464:12)\n    at Expect._validateBodyContains (node_modules/pactum/src/models/expect.js:213:16)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:53:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:255:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:219:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:46:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+            "diff": null
+          },
+          "uuid": "456ae2c5-b931-4329-8ff7-0d3eb696a7cb",
+          "parentUUID": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Alter category by ID",
+          "fullTitle": "Alter category by ID",
+          "timedOut": false,
+          "duration": 136,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "const returnValue = await spec()\n    .post('http://lojaebac.ebaconline.art.br/graphql')\n    .withGraphQLQuery(`\n        mutation {\n            editCategory(\n                id: \"3\"\n                name: \"testeUI\"\n                photo: \"Testeink\"\n            ) {\n                name\n                photo\n            }\n        }\n    `)\n    .returns('data.editCategory.name')\n    .expectStatus(200)\n    .expectBodyContains(\"testeUI\"); //is not returning the name , as if this is not working",
+          "err": {
+            "message": "AssertionError: Value 'testeUI' not found in response body",
+            "estack": "AssertionError [ERR_ASSERTION]: Value 'testeUI' not found in response body\n    at Expect.fail (node_modules/pactum/src/models/expect.js:464:12)\n    at Expect._validateBodyContains (node_modules/pactum/src/models/expect.js:213:16)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:53:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:255:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:219:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:46:18)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+            "diff": null
+          },
+          "uuid": "05c0835e-8b57-402d-91dd-109bc8d5e803",
+          "parentUUID": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Delete category by ID",
+          "fullTitle": "Delete category by ID",
+          "timedOut": false,
+          "duration": 135,
+          "state": "passed",
+          "speed": "slow",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await spec()\n  .post('http://lojaebac.ebaconline.art.br/graphql')\n  .withGraphQLQuery(`\n      mutation {\n          deleteCategory(\n              id: \"6\"\n          ) {\n              name\n              photo\n          }\n      }\n  `)\n  .returns('data.deleteCategory')\n  .expectStatus(200)\n  .expectBodyContains(\"null\");",
+          "err": {},
+          "uuid": "ae672903-3226-4e81-b8cf-893852fdaa69",
+          "parentUUID": "38d7ef78-4a21-4647-8db9-feb2fb821842",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [],
+      "passes": [
+        "c8a8625f-cff5-4fda-bc07-f41fec333d66",
+        "ae672903-3226-4e81-b8cf-893852fdaa69"
+      ],
+      "failures": [
+        "456ae2c5-b931-4329-8ff7-0d3eb696a7cb",
+        "05c0835e-8b57-402d-91dd-109bc8d5e803"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 554,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "11.7.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "categories-report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportFilename": "categories-report"
+      },
+      "version": "6.2.0"
+    }
+  }
+}
