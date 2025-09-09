@@ -1,15 +1,20 @@
-import { $ } from '@wdio/globals'
+import { $ , driver } from '@wdio/globals'
 
 class HomePage {
 
         async openMenu(menu){
-            await $(`id:tab-${menu}`).click()
-            // await $('~Profile').click()
+            if(driver.isAndroid)
+                await $(`id:tab-${menu}`).click()
+            if(driver.isIOS)
+                await $(`~tab-${menu}`).click()
         }
 
         get ebacHomeLogo(){
-            return $('android=new UiSelector().text("EBAC Store")')
-        }
+            if(driver.isAndroid)
+                return $('android=new UiSelector().text("EBAC Store")')
+            if(driver.isIOS)
+                return $('//XCUIElementTypeStaticText[@name="EBAC Store"]')
+         }
 }
 
 export default new HomePage();

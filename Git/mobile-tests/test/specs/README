@@ -1,5 +1,6 @@
 # Command to run appium-doctor
 # appium driver doctor uiautomator2
+# appium driver doctor xcuites 
 
 # Command to set up the bundletool.jar
 # chmod +x bundletool.jar
@@ -12,3 +13,21 @@
 # or This will generate a report (by default in ./allure-report), and open it in your browser.
 # allure generate [allure_output_dir] && allure open
 
+Install Xcode and run a simulator
+run appium using command "appium" in terminal
+Configure the simulator in appium inspector and run it (inspector used to get the path's elements)
+
+Need to have xcuitest appium driver installed
+- to check 
+appium driver list
+
+- to install
+appium  driver install xcuitest
+
+- to update brew
+brew update
+
+- to update node
+brew upgrade node
+
+- To run the project 

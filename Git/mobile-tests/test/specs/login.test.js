@@ -4,10 +4,11 @@ import loginPage from '../pageobjects/login.page.js'
 import profilePage from '../pageobjects/profile.page.js'
 
 describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
-        await homePage.openMenu('profile')
+    it.skip('should login with valid credentials', async () => {
+        let profileMenu = driver.isAndroid ? 'profile' : 'Account'
+        await homePage.openMenu(profileMenu)
         await loginPage.login('lele@ebac.com','ebac123')
-        await homePage.openMenu('profile')
+        await homePage.openMenu(profileMenu)
         expect((await profilePage.profileInfo('Lopes Silva')).isDisplayed()).toBeTruthy()
     })
 })

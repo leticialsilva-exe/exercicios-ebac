@@ -18,18 +18,25 @@ class signUpPage  {
     }
 
     get password(){
-        return $('id:password')
+        if(driver.isAndroid)
+            return $('android=new UiSelector().text("Password")')
+        if(driver.isIOS)
+            return $('~password')
     }
 
     get reEnterPassword(){
-        return $('id:repassword')
+        if(driver.isAndroid)
+            return $('id:repassword')
+        if(driver.isIOS)
+            return $('~repassword')
     }
 
     get btnCreate(){
-        return $('android=new UiSelector().text("Create")')
+        if(driver.isAndroid)
+            return $('android=new UiSelector().text("Create")')
+        if(driver.isIOS)
+            return $('~create')
     }
-
-    
 }
 
 export default new signUpPage();
