@@ -7,6 +7,11 @@ import { sauceConf } from './sauce.conf.js'
 
 import 'dotenv/config';
 
+    // wdio.conf.js
+    exports.config = {
+        ...getConfig()
+    };
+
 function getConfig() {
     switch (process.env.ENVIRONMENT) {
         case 'local':
@@ -18,5 +23,6 @@ function getConfig() {
     }
 }
 
-export const Config = getConfig();
+// export const config = getConfig();
 // module.exports = getConfig();
+
