@@ -2,9 +2,11 @@ import { bsConf } from './bs.conf.js';
 import { localConf } from './local.conf.js'
 import { sauceConf } from './sauce.conf.js'
 
-import {} from '../node_modules/dotenv/config.js';
+import 'dotenv/config';
 
-export const config = getConfig();
+export const config = {
+    ...getConfig()  
+}
 
 function getConfig() {
     switch (process.env.ENVIRONMENT) {

@@ -13,11 +13,11 @@
     "typescript": "^5.3.3"    
   },
   "scripts": {
-    "test": "wdio run ../mobile-tests/Config/wdio.conf.js",
-    "test:ios": "wdio run ./Config/wdio.conf.js",
-    "test:ios:login": "wdio run ./Config/wdio.conf.js --suite login",
-    "test:ios:signUp": "wdio run ./Config/wdio.conf.js --suite signUp",
-    "test:ios:cart": "wdio run ./Config/wdio.conf.js --suite cart",
+    "test": "wdio run Config/wdio.conf.js",
+    "test:ios": "wdio run Config/wdio.conf.js",
+    "test:ios:login": "wdio run Config/wdio.conf.js --suite login",
+    "test:ios:signUp": "wdio run Config/wdio.conf.js --suite signUp",
+    "test:ios:cart": "wdio run Config/wdio.conf.js --suite cart",
     "posttest": "npm run report",
     "report": "allure generate allure-results"
 
