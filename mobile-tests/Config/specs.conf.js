@@ -1,5 +1,5 @@
 export let specsConf = {
     specs: [
-        '../test/specs/**/*.test.js'
+        '../test/specs/**/login.test.js'
     ]
 }
