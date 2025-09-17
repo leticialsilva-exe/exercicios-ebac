@@ -2,7 +2,7 @@ import { bsConf } from './bs.conf.js';
 import { localConf } from './local.conf.js'
 import { sauceConf } from './sauce.conf.js'
 
-//import {} from '../node_modules/dotenv/config.js';
+import {} from '../node_modules/dotenv/config.js';
 
 export const config = { 
     ...getConfig()
