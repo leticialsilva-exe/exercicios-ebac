@@ -15,7 +15,10 @@
     "test:ios": "wdio run Config/wdio.config.js",
     "test:ios:login": "wdio run Config/wdio.config.js --suite login",
     "test:ios:signUp": "wdio run Config/wdio.config.js --suite signUp",
-    "test:ios:cart": "wdio run Config/wdio.config.js --suite cart"
+    "test:ios:cart": "wdio run Config/wdio.config.js --suite cart",
+    "posttest": "npm run report",
+    "report": "allure generate allure-results"
+
   },
   "dependencies": {
     "allure-commandline": "^2.32.2",
