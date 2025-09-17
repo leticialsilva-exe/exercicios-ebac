@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "joi": "^17.13.3"
-  },
-  "devDependencies": {
-    "faker": "^5.5.3"
-  }
-}
