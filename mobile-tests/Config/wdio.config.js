@@ -15,4 +15,4 @@ function getConfig() {
     }
 }
 
-export const config = getConfig()
+export const config = getConfig();
