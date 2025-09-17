@@ -1,9 +1,9 @@
-//import { bsConf } from './bs.conf.js';
-//import { localConf } from './local.conf.js'
-//import { sauceConf } from './sauce.conf.js'
-const { bsConf } = require('./bs.conf.js');
-const { localConf } = require('./local.conf.js');
-const { sauceConf } = require('./sauce.conf.js');
+import { bsConf } from './bs.conf.js';
+import { localConf } from './local.conf.js'
+import { sauceConf } from './sauce.conf.js'
+// const { bsConf } = require('./bs.conf.js');
+// const { localConf } = require('./local.conf.js');
+// const { sauceConf } = require('./sauce.conf.js');
 
 import 'dotenv/config';
 
@@ -18,5 +18,5 @@ function getConfig() {
     }
 }
 
-//export const config = getConfig();
-module.exports = getConfig();
+export const Config = getConfig();
+// module.exports = getConfig();
