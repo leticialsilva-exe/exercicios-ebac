@@ -1,14 +1,12 @@
 export const config = {
 
-    runner: 'local',
-    port: 4723,
-
-    // user: 'oauth-leehslash-a1f95',
-    // key: '7ceb9fcb-5acc-4e45-a757-525962f6f13e',
-    // hostname: 'ondemand.us-west-1.saucelabs.com',
-    // port: 443,
-    // baseUrl: 'wd/hub',
-      
+    // runner: 'local',
+    // port: 4723,
+    user: 'oauth-leehslash-903e6',
+    key: '4cfce2c2-e2e6-4dbb-af5a-9557287e0d0f',
+    hostname: 'ondemand.us-west-1.saucelabs.com',
+    port: 443,
+    baseUrl: 'wd/hub',      
     specs: [
         '../test/specs/**/login.test.js'
     ],
