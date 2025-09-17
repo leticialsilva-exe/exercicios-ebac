@@ -4,9 +4,7 @@ import { sauceConf } from './sauce.conf.js'
 
 import {} from '../node_modules/dotenv/config.js';
 
-export const config = { 
-    ...getConfig()
-}
+export const config = getConfig();
 
 function getConfig() {
     switch (process.env.ENVIRONMENT) {

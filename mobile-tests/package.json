@@ -8,7 +8,9 @@
     "@wdio/local-runner": "^9.10.0",
     "@wdio/mocha-framework": "^9.9.0",
     "@wdio/spec-reporter": "^9.9.0",
-    "appium-uiautomator2-driver": "^4.0.3"
+    "appium-uiautomator2-driver": "^4.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"    
   },
   "scripts": {
     "test": "wdio run ../mobile-tests/Config/wdio.conf.js",
