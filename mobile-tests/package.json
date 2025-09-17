@@ -13,7 +13,7 @@
     "typescript": "^5.3.3"    
   },
   "scripts": {
-    "test": "wdio run Config/wdio.conf.js",
+    "test": "wdio run Config/wdio.config.js",
     "test:ios": "wdio run Config/wdio.conf.js",
     "test:ios:login": "wdio run Config/wdio.conf.js --suite login",
     "test:ios:signUp": "wdio run Config/wdio.conf.js --suite signUp",
