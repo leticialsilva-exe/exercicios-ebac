@@ -17,6 +17,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v4
+      - name: Create .env file from secret
+        run: echo "${{ secrets.MY_ENV_VARS }}" > .env
+      - name: Use variables
+        run: cat .env
       - uses: actions/setup-node@v4
         with:
           node-version: '24.8.0'
