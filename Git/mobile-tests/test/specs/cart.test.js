@@ -1,15 +1,3 @@
-// ~tab-Browse
-
-// (//XCUIElementTypeOther[@name="productDetails"])[2] produto 1
-
-// ~addToCart
-
-// ~addNewAddress add Address
-
-// ~selectAddressOrContinueToPayment select adress
-
-// 
-
 import { expect , driver} from '@wdio/globals'
 import loginPage from '../pageobjects/login.page.js'
 import homePage from '../pageobjects/home.page.js'
@@ -26,10 +14,10 @@ describe('My Cart', () => {
         await loginPage.login('lele@ebac.com','ebac123')
         // Add product to cart
         await homePage.openMenu('Browse')
-        await $('(//XCUIElementTypeOther[@name="productDetails"])[2]').click() 
+        await $('(//XCUIElementTypeOther[@name="productDetails"])[3]').click() 
         await checkoutPage.addToCart.click() // selecting first product
         // Check if the address already exists
-        if (await adressPage.btnAddAddress.isDisplayed()) {
+        if (!((await adressPage.btnPayment).isDisplayed()).toBeTruthy()) {
             await adressPage.btnAddAddress.click()
             await adressPage.inputName.setValue('Leticia')
             await adressPage.inputMobile.setValue('11999325252')

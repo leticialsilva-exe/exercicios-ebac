@@ -29,6 +29,7 @@ class loginPage {
         
         async login(email, password){
             await this.email.setValue(email)
+            await this.email.setValue(email)
             await this.password.setValue(password)
             await this.btnLogin.click()
         }

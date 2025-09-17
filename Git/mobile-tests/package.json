@@ -11,13 +11,14 @@
     "appium-uiautomator2-driver": "^4.0.3"
   },
   "scripts": {
-    "test": "wdio run ./wdio.conf.js",
-    "test:ios": "wdio run ./wdio.ios.conf.js",
-    "test:ios:login": "wdio run ./wdio.ios.conf.js --suite login",
-    "test:ios:signUp": "wdio run ./wdio.ios.conf.js --suite signUp",
-    "test:ios:cart": "wdio run ./wdio.ios.conf.js --suite cart"
+    "test": "wdio run Config/wdio.config.js", 
+    "test:ios": "wdio run Config/wdio.config.js",
+    "test:ios:login": "wdio run Config/wdio.config.js --suite login",
+    "test:ios:signUp": "wdio run Config/wdio.config.js --suite signUp",
+    "test:ios:cart": "wdio run Config/wdio.config.js --suite cart"
   },
   "dependencies": {
-    "allure-commandline": "^2.32.2"
+    "allure-commandline": "^2.32.2",
+    "dotenv": "^17.2.2"
   }
 }

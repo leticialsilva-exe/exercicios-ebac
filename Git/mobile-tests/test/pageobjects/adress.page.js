@@ -25,7 +25,7 @@ import { $ , driver } from '@wdio/globals'
 class AdressPage {
 
         get btnAddAddress(){
-            return $('~addNewAddress')
+            return $('~selectAddressOrContinueToPayment')
         }
 
         get inputName(){
